@@ -4,7 +4,7 @@
       <a-input
         v-model:value="formState.inputValue"
         placeholder=""
-        @blur="update"
+        @change="update"
       />
     </a-form-item>
   </a-form>

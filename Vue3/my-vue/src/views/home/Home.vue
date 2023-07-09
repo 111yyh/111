@@ -2,7 +2,7 @@
   <div v-for="(item, index) in list" :index="item.id">
     <common :index="index" @update="handleInputChange"></common>
   </div>
-  <a-button @click="d()" :disabled="!allState">11</a-button>
+  <a-button @click="d()" :disabled="allState">11</a-button>
   <div>
     <interval></interval>
   </div>
@@ -18,7 +18,7 @@ export default defineComponent({
     interval
   },
   setup() {
-    let State = ref(true);
+    let State = ref([]);
     const value1 = ref("");
     const val = ref([]);
     const list = reactive([
@@ -26,36 +26,22 @@ export default defineComponent({
         id: "g",
         name: "g",
         value: "",
-        state: true,
       },
       {
         id: "y",
         name: "y",
         value: "",
-        state: true,
       },
     ]);
     const allState = computed(() => {
-      for (let index = 0; index < list.length; index++) {
-        if (list[index].state == false) {
-          State.value = false;
-          break;
-        } else {
-          continue;
-        }
-      }
-      if (State.value == false) {
-        return false;
-      } else {
-        return true;
-      }
+      return State.value.some(value => value)
     });
     const handleInputChange = (value, index, state) => {
       // 根据索引保存每个子组件的值
       console.log("1111", value);
       val.value[index] = value;
-      list[index].state = state;
-      console.log("222", list);
+      State.value[index] = state;
+      console.log("222", State.value);
     };
     const d = () => {
       console.log(val.value);
